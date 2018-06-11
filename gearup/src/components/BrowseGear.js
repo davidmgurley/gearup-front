@@ -13,18 +13,21 @@ class BrowseGear extends Component {
   componentDidMount() {
     fetch('../gearCategories.json')
     .then(response => response.json())
-    .then(response => console.log(response))
+    .then(response => this.setState({categories: response}, () => {console.log(this.state.categories)}))
   }
 
   render() {
     return (
       <div>
-        <Card>
-          <Image src='http://szzljy.com/images/camping/camping2.jpg' />
+      {this.state.categories.map((category, index) => {
+        return <Card key={index}>
+          <Image style={{height:'290px', width:'290px'}}src={category.image} />
           <Card.Content>
-            <Card.Header style={{textAlign: 'center', fontSize: '200%', fontWeight: 'bold'}}>Camp</Card.Header>
+            <Card.Header style={{textAlign: 'center', fontSize: '200%', fontWeight: 'bold'}}>{category.category}</Card.Header>
           </Card.Content>
-        </Card>
+        </Card>        
+      })}
+
       </div>
     )
   }
