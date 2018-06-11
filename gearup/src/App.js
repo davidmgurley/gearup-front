@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import BrowseGear from './components/BrowseGear'
 
 import firebase from 'firebase'
 require('firebase/auth')
@@ -15,10 +16,12 @@ const config = {
   firebase.initializeApp(config)
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
         <h1>Denver Gear Up</h1>
+        <BrowseGear />
       </div>
     );
   }
