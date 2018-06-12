@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './BrowseGear.css'
 import BrowseGear from './components/BrowseGear'
 
 import firebase from 'firebase'

@@ -19,15 +19,16 @@ class BrowseGear extends Component {
   render() {
     return (
       <div>
-      {this.state.categories.map((category, index) => {
-        return <Card key={index}>
-          <Image style={{height:'290px', width:'290px'}}src={category.image} />
-          <Card.Content>
-            <Card.Header style={{textAlign: 'center', fontSize: '200%', fontWeight: 'bold'}}>{category.category}</Card.Header>
-          </Card.Content>
-        </Card>        
-      })}
-
+        <section id='browse-container'>
+          {this.state.categories.map((category, index) => {
+            return <Card key={index}>
+              <Image style={{height:'290px', width:'290px'}}src={category.image} />
+              <Card.Content>
+                <Card.Header style={{textAlign: 'center', fontSize: '200%', fontWeight: 'bold'}}>{category.category}</Card.Header>
+              </Card.Content>
+            </Card>        
+          })}
+        </section>
       </div>
     )
   }
