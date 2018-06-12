@@ -2,21 +2,32 @@ import React, { Component } from 'react'
 import { Button, Header, Modal, Form } from 'semantic-ui-react'
 
 class HeaderTop extends Component {
-  state = { modalLogInOpen: false,
-            modalSignUpOpen: false}
+  state = {
+    modalLogInOpen: false,
+    modalSignUpOpen: false,
+    modalLoginButton: true,
+    modalSignUpButton: true,
+  }
 
-    handleLogInOpen = (event) => this.setState({ modalLogInOpen: true })
-    handleSignUpOpen = (event) => this.setState({ modalSignUpOpen: true })
+  handleLogInOpen = (event) => this.setState({ modalLogInOpen: true })
+  handleSignUpOpen = (event) => this.setState({ modalSignUpOpen: true })
 
-    handleLogInClose = (event) => this.setState({ modalLogInOpen: false })
-    handleSignUpClose = (event) => this.setState({ modalSignUpOpen: false })
+  handleLogInClose = (event) => this.setState({ modalLogInOpen: false })
+  handleSignUpClose = (event) => this.setState({ modalSignUpOpen: false })
+
+  visibleButton = (event) => {
+    if (this.props.loggedInUser === 'Please Log In or Create an Account') {
+      this.setState({ showButton: true })
+    }
+    else { this.setState({ showButton: false }) }
+  }
 
 
   render(){
   return (
 
     <header>
-      <Modal trigger={<Button onClick={this.handleSignUpOpen} className='login'>Sign Up</Button>} open={this.state.modalSignUpOpen}
+      <Modal trigger={(<Button onClick={this.handleSignUpOpen} className='login'>Sign Up</Button>)} open={this.state.modalSignUpOpen}
         onClose={this.handleSignUpClose} basic size='small'>
         <Header Icon='add user' content='Sign Up' />
         <Modal.Content>
@@ -32,7 +43,7 @@ class HeaderTop extends Component {
               <label>Password</label>
               <input id='signup-password' type='password' placeholder='Password' />
             </Form.Field>
-            <Button onClick={(event) => {this.props.signUp(event); this.handleSignUpClose(event)}}>Submit</Button>
+            <Button onClick={(event) => { this.props.signUp(event); this.handleSignUpClose(event); this.removeLogin(event); }}>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -55,7 +66,8 @@ class HeaderTop extends Component {
                 <label>Password</label>
                 <input id='login-password' type='password' placeholder='Password' />
               </Form.Field>
-              <Button onClick={(event) => {this.props.logIn(event); this.handleLogInClose(event)}}>Submit</Button>
+            <Button onClick={(event) => { this.props.logIn(event); this.handleLogInClose(event); }}>Submit</Button>
+
           </Form>
     </Modal.Content>
     <Modal.Actions>

@@ -66,7 +66,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut}/>
+        <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} />
+
       </div>
     );
   }
