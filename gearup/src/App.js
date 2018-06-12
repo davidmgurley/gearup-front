@@ -17,7 +17,15 @@ const config = {
 
 const gearUpURL = 'https://gear-up-backend.herokuapp.com/gear'
 
+
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      loggedInUser: 'Please Log In or Create an Account'
+    }
+    }
 
   signUp = (event) => {
       const signupPassword = document.getElementById('signup-password')
