@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Card, Icon, Image, Grid , Button, Divider, Tab } from 'semantic-ui-react'
-
+import { Header, Modal } from 'semantic-ui-react'
 
 class BrowseGear extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class BrowseGear extends Component {
       categories: [],
       showCategories: true,
       categoryItems: [],
-
+      closeModal: false
     }
   }
 
@@ -41,10 +41,10 @@ class BrowseGear extends Component {
     return (
       <div>
         { this.state.showCategories ?
-          <section id='browse-container'>
+          <section className='browse-container'>
 
             {this.state.categories.map((category, index) => {
-              return <Card key={index} onClick={(props) => this.loadItems(category.category.toLowerCase())}>
+              return <Card key={index} style={{marginTop:'10px', marginBottom:'0'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>
                 <Image style={{height:'290px', width:'290px'}}src={category.image} />
                 <Card.Content>
                   <Card.Header style={{textAlign: 'center', fontSize: '200%'}}>{category.category}</Card.Header>
@@ -53,28 +53,43 @@ class BrowseGear extends Component {
             })}
           </section>
         :
-        <section>
+        <section id="browse-items-by-category">
           <Button.Group floated='right'>
-            <Button color="brown" style={{color: '#F7F9F9', height: '65px'}}>Camp</Button>
-            <Button color="brown" style={{color: '#F7F9F9', height: '65px'}}>Climb</Button>
-            <Button color="brown" style={{color: '#F7F9F9', height: '65px'}}>Cycle</Button>
-            <Button color="brown" style={{color: '#F7F9F9', height: '65px'}}>Paddle</Button>
-            <Button color="brown" style={{color: '#F7F9F9', height: '65px'}}>Snow</Button>
-            <Button color="brown" style={{color: '#F7F9F9', height: '65px'}}>Hike</Button>
+            {this.state.categories.map((category, index) => {
+              return <Button color="brown" style={{color: '#F7F9F9', height: '65px'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>{category.category}</Button>
+            })}
           </Button.Group>
-        {this.state.categoryItems.map((item,index) => {
-           return <Card key={index}>
-              <Image style={{height:'290px', width:'290px'}} src={item.image_url} />
-              <Card.Content>
-                <Card.Header>{item.gear_type} - {item.manufacturer}</Card.Header>
-                <Card.Description>{item.description}</Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
-              </Card.Content>
-              <Button>Contact Now</Button>
-            </Card>
-        })}
+          <section className="item-cards">
+            {this.state.categoryItems.map((item,index) => {
+               return <Card key={index} style={{marginTop:'10px', marginBottom: '0', padding:'0'}}>
+                  <Image style={{height:'290px', width:'290px'}} src={item.image_url} />
+                  <Card.Content>
+                    <Card.Header>{item.gear_type} - {item.manufacturer}</Card.Header>
+                    <Card.Description>{item.description}</Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
+                  </Card.Content>
+
+                  <Modal className="modal" trigger={<Button>Contact Now!</Button>} style={{textAlign: "center"}} basic size='small'>
+                    <Header content='Request to Rent' />
+                    <Modal.Content >
+                      <textarea rows="5" cols="50" placeholder="Message">
+                      </textarea>
+                    </Modal.Content>
+                    <Modal.Actions style={{textAlign: "center"}}>
+                      <Button basic color='red' inverted onClick={this.setState({closeModal: true})}>
+                        <Icon name='remove' /> Cancel
+                      </Button>
+                      <Button color='green' inverted>
+                        <Icon name='checkmark' /> Send Message
+                      </Button>
+                    </Modal.Actions>
+                  </Modal>
+                </Card>
+              })}
+          </section>
+
         </section>
        }
       </div>

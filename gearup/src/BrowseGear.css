@@ -1,5 +1,5 @@
 
-#browse-container {
+.browse-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -7,4 +7,25 @@
   align-items: center;
   /* height: 75vh; */
   /* width: 80vw; */
+}
+
+#browse-items-by-category {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-cards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  /* height: 100vh; */
+}
+
+.modal {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(0% ,-50%);
 }
