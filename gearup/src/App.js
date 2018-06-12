@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import HeaderTop from './components/HeaderTop'
-
+import BrowseGear from './components/BrowseGear'
 import firebase from 'firebase'
 require('firebase/auth')
 
@@ -16,7 +16,6 @@ const config = {
   firebase.initializeApp(config)
 
 const gearUpURL = 'https://gear-up-backend.herokuapp.com/gear'
-
 
 class App extends Component {
 
@@ -75,7 +74,6 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} />
-
       </div>
     );
   }
