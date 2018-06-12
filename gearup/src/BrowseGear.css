@@ -1,6 +1,10 @@
-section {
+
+#browse-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  /* align-self: center; */
+  justify-items: center;
+  align-items: center;
+  /* height: 75vh; */
+  /* width: 80vw; */
 }
