@@ -36,10 +36,37 @@ class App extends Component {
         }})
     }
 
+  logIn = (event) => {
+    const signupPassword = document.getElementById('login-password')
+    const signupEmail = document.getElementById('login-email')
+    const pass = signupPassword.value
+    const email = signupEmail.value
+    const auth = firebase.auth()
+    const promise = auth.signInWithEmailAndPassword(email, pass)
+    promise.catch(e => console.log(e.message))
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+      if(firebaseUser){
+        this.setState ({ loggedInUser: firebaseUser.email })
+        console.log(firebaseUser.email)
+      } else {
+        console.log('not logged in')
+      }})
+  }
+
+  logOut = () => {
+    firebase.auth().signOut()
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+        this.setState({ loggedInUser: 'Please Log In or Create an Account' })
+      })
+      alert('Thanks for visiting! You are now logged out')
+  }
+
+
+
   render() {
     return (
       <div className="App">
-        <HeaderTop signUp={this.signUp}/>
+        <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut}/>
       </div>
     );
   }
