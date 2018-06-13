@@ -65,6 +65,10 @@ class PostGear extends Component {
     this.setState({[name]: event.target.value})
   }
 
+  handleCategoryChange = (event, data) => {
+    this.setState({[data.name]: data.value})
+  }
+
   postGearSubmit = (event) => {
     event.preventDefault()
     const url = 'https://gear-up-backend.herokuapp.com/gear'
@@ -217,7 +221,7 @@ deleteGear = (event) =>{
                       <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
                     </Form.Field>
                     <Form.Field>
-                      <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={(event) => {setTimeout(function() {this.handleDropdownChange(event)}.bind(this), 100)}} />
+                      <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={this.handleCategoryChange.bind(this)} />
                     </Form.Field>
                     <Form.Field>
                       <label>Gear Type</label>
