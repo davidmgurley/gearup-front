@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './BrowseGear.css'
 import './HeaderTop.css'
 import HeaderTop from './components/HeaderTop'
 import BrowseGear from './components/BrowseGear'
