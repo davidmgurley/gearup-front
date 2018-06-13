@@ -190,6 +190,7 @@ deleteGear = (event) =>{
                 <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
               </Form.Field>
               <Button onClick={this.postGearSubmit}>Submit</Button>
+              <Button negative>Cancel</Button>
           </Form>
           </Modal.Content>
           <Modal.Actions>

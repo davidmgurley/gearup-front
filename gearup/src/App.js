@@ -85,11 +85,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" style={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
-
+      <div className="App">
         <HeaderTop showPostGear={this.showPostGear} signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
         {this.state.showProfile ? <PostGear showBrowseGear={this.showBrowseGear} user={this.state.loggedInUser} /> : <BrowseGear />}
-
       </div>
     );
   }
