@@ -4,6 +4,7 @@ import './BrowseGear.css'
 import './HeaderTop.css'
 import HeaderTop from './components/HeaderTop'
 import BrowseGear from './components/BrowseGear'
+import PostGear from './components/PostGear'
 import firebase from 'firebase'
 require('firebase/auth')
 
@@ -77,7 +78,8 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
-        <BrowseGear />
+        <PostGear user={this.state.loggedInUser} />
+      <BrowseGear />
       </div>
     );
   }
