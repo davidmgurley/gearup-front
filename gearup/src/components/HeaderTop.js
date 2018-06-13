@@ -47,7 +47,7 @@ class HeaderTop extends Component {
               <label>Password</label>
               <input id='signup-password' type='password' placeholder='Password' />
             </Form.Field>
-            <Button onClick={(event) => { this.props.signUp(event); this.handleSignUpClose(event); setTimeout(function () { this.visibleButton(event) }.bind(this), 500) } }>Submit</Button>
+            <Button onClick={ (event) => { this.props.signUp(event); this.handleSignUpClose(event); this.visibleButton(event) } }>Submit</Button>
         </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -70,14 +70,14 @@ class HeaderTop extends Component {
               <label>Password</label>
               <input id='login-password' type='password' placeholder='Password' />
             </Form.Field>
-            <Button onClick={(event) => { this.props.logIn(event); this.handleLogInClose(event); setTimeout(function() {this.visibleButton(event)}.bind(this), 1000)}}>Submit</Button>
+            <Button onClick={ (event) => { this.props.logIn(event); this.handleLogInClose(event); this.visibleButton(event) } }>Submit</Button>
 
           </Form>
         </Modal.Content>
         <Modal.Actions>
         </Modal.Actions>
       </Modal> : <p></p>}
-      {this.state.showButton ? <p></p> : <Button onClick={(event) => { this.props.logOut(event); setTimeout(function () { this.visibleButton(event) }.bind(this), 500) }} className='logout'>Log Out</Button>}
+      {this.state.showButton ? <p></p> : <Button onClick={(event) => { this.props.logOut(event);  this.visibleButton(event) } } className='logout'>Log Out</Button>}
       {this.state.showButton ? <h3>{this.props.loggedInUser}</h3> : <Button>{this.props.loggedInUser}</Button>}
       <h1>Denver Gear Up</h1>
     </header>

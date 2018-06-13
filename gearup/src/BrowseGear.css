@@ -1,0 +1,31 @@
+
+.browse-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  /* height: 75vh; */
+  /* width: 80vw; */
+}
+
+#browse-items-by-category {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-cards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  
+}
+
+.modal {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(0% ,-50%);
+}
