@@ -68,7 +68,7 @@ class BrowseGear extends Component {
           </Button.Group>
           <section className="item-cards">
             {this.state.categoryItems.map((item,index) => {
-               return <Card key={index} style={{marginTop:'10px', marginBottom: '0', padding:'0'}}>
+               return <Card key={index} style={{marginTop:'10px', marginBottom: '0', marginLeft: '30px', padding:'0'}}>
                   <Image style={{height:'290px', width:'290px'}} src={item.image_url} />
                   <Card.Content>
                     <Card.Header>{item.gear_type} - {item.manufacturer}</Card.Header>
