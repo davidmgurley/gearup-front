@@ -26,8 +26,9 @@ class App extends Component {
     super(props)
     this.child = React.createRef()
     this.state = {
-      loggedInUser: 'Please Log In or Create an Account'
-    }
+      loggedInUser: 'Please Log In or Create an Account',
+      showProfile: false
+      }
     }
 
   signUp = (event) => {
@@ -72,14 +73,22 @@ class App extends Component {
       alert('Thanks for visiting! You are now logged out')
   }
 
+  showPostGear = () => {
+    this.setState({showProfile: true})
+  }
+
+  showBrowseGear = () => {
+    this.setState({showProfile: false})
+  }
+
 
 
   render() {
     return (
       <div className="App">
-        <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
-        <PostGear user={this.state.loggedInUser} />
-      <BrowseGear />
+        <HeaderTop showPostGear={this.showPostGear} signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
+        {this.state.showProfile ? <PostGear showBrowseGear={this.showBrowseGear} user={this.state.loggedInUser} /> : <BrowseGear />}
+
       </div>
     );
   }
