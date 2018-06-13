@@ -79,7 +79,6 @@ class BrowseGear extends Component {
                   </Card.Content>
                   <Button onClick={this.show(true)}>Contact Now!</Button>
                   <Modal className="modal"
-
                          style={{textAlign: "center"}}
                          basic size='small'
                          dimmer={dimmer}
