@@ -237,7 +237,7 @@ deleteGear = (event) =>{
                     </Form.Field>
                     <Form.Field>
                       <label>Available</label>
-                      <Checkbox toggle id='update-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                      <Checkbox toggle name='available' value={this.state.available} onChange={this.checkboxToggle} />
                     </Form.Field>
                     <Button onClick={this.onUpdateSubmit}>Update Item</Button>
                     <Button onClick={this.deleteGear}>Delete</Button>
