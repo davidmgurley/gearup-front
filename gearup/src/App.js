@@ -77,6 +77,7 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
+        <BrowseGear />
       </div>
     );
   }
