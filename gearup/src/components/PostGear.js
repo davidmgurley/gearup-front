@@ -32,12 +32,13 @@ class PostGear extends Component {
   state = {
     postedItems: [],
     modalNewGearOpen: false,
+    modalUpdateOpen: false,
     image: '',
     category: '',
     gearType: '',
     manufacturer: '',
     description: '',
-    price: '',
+    price: 0,
     available: true
   }
 
@@ -53,8 +54,11 @@ class PostGear extends Component {
     }))
   }
 
-  handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true }), this.setState({itemID: event.target.id})}
+  handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
   handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
+
+  handleUpdateOpen = (event) => {this.setState({ modalUpdateOpen: true }), this.setState({itemID: event.target.id})}
+  handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
 
   handleChange = (event) => {
     const name = event.target.name
@@ -89,7 +93,7 @@ class PostGear extends Component {
       gearType: '',
       manufacturer: '',
       description: '',
-      price: '',
+      price: 0,
       available: true
     })
     this.handleNewGearClose()
@@ -133,12 +137,20 @@ class PostGear extends Component {
       gearType: '',
       manufacturer: '',
       description: '',
-      price: '',
+      price: 0,
       available: true
     })
-    this.handleNewGearClose()
+    this.handleUpdateClose()
   }
 
+deleteGear = (event) =>{
+  const url = `https://gear-up-backend.herokuapp.com/gear/${this.state.itemID}`
+  fetch(url, {
+    method: 'DELETE'
+  })
+  .then(response => this.fetchItems())
+  this.handleUpdateClose()
+}
 
   render() {
     return (
@@ -194,8 +206,8 @@ class PostGear extends Component {
               <Card.Content extra>
                 <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
               </Card.Content>
-              <Modal trigger={ <Button id={item.id} onClick={this.handleNewGearOpen} className='add-gear'>Edit Item</Button>} open={this.state.modalNewGearOpen}
-              onClose={this.handleNewGearClose} basic size='small'>
+              <Modal trigger={ <Button onClick={this.handleUpdateOpen} id={item.id} className='add-gear'>Edit Item</Button>} open={this.state.modalUpdateOpen}
+              onClose={this.handleUpdateClose} basic size='small'>
                 <Header Icon='add user' content='Add New Gear' />
                 <Modal.Content>
                   <Form>
@@ -224,10 +236,10 @@ class PostGear extends Component {
                     </Form.Field>
                     <Form.Field>
                       <label>Available</label>
-                      <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                      <Checkbox toggle id='update-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
                     </Form.Field>
                     <Button onClick={this.onUpdateSubmit}>Update Item</Button>
-                    <Button onClick={this.postGearSubmit}>Delete</Button>
+                    <Button onClick={this.deleteGear}>Delete</Button>
                 </Form>
                 </Modal.Content>
                 <Modal.Actions>
