@@ -1,7 +1,8 @@
-import _ from 'lodash'
 import React, { Component } from 'react'
 import { Card, Icon, Image, Grid , Button, Divider, Tab } from 'semantic-ui-react'
 import { Header, Modal } from 'semantic-ui-react'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+import 'react-notifications/lib/notifications.css'
 
 class BrowseGear extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class BrowseGear extends Component {
       categories: [],
       showCategories: true,
       categoryItems: [],
-      closeModal: false
+      open: false
     }
   }
 
@@ -18,9 +19,6 @@ class BrowseGear extends Component {
     fetch('../gearCategories.json')
     .then(response => response.json())
     .then(response => this.setState({categories: response}))
-
-
-
   }
 
   loadItems = (event) => {
@@ -34,12 +32,21 @@ class BrowseGear extends Component {
     .then(response => console.log(this.state.categoryItems))
   }
 
+  createNotification = (event) => {
+      console.log('Working')
+      NotificationManager.success('Your request has been sent', 'Success!')
+  };
 
+  show = dimmer => () => this.setState({ dimmer, open: true })
+  close = () => this.setState({ open: false })
 
   render() {
 
+    const { open, dimmer } = this.state
+
     return (
       <div>
+        <NotificationContainer />
         { this.state.showCategories ?
           <section className='browse-container'>
 
@@ -56,7 +63,7 @@ class BrowseGear extends Component {
         <section id="browse-items-by-category">
           <Button.Group floated='right'>
             {this.state.categories.map((category, index) => {
-              return <Button color="brown" style={{color: '#F7F9F9', height: '65px'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>{category.category}</Button>
+              return <Button color="brown" key={index} style={{color: '#F7F9F9', height: '65px'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>{category.category}</Button>
             })}
           </Button.Group>
           <section className="item-cards">
@@ -70,18 +77,24 @@ class BrowseGear extends Component {
                   <Card.Content extra>
                     <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
                   </Card.Content>
+                  <Button onClick={this.show(true)}>Contact Now!</Button>
+                  <Modal className="modal"
 
-                  <Modal className="modal" trigger={<Button>Contact Now!</Button>} style={{textAlign: "center"}} basic size='small'>
-                    <Header content='Request to Rent' />
+                         style={{textAlign: "center"}}
+                         basic size='small'
+                         dimmer={dimmer}
+                         open={open}
+                         onClose={this.close}>
+                    <Header content='Request to Rent' style={{fontSize: '250%'}} />
                     <Modal.Content >
                       <textarea rows="5" cols="50" placeholder="Message">
                       </textarea>
                     </Modal.Content>
                     <Modal.Actions style={{textAlign: "center"}}>
-                      <Button basic color='red' inverted onClick={this.setState({closeModal: true})}>
+                      <Button basic color='red' inverted onClick={this.close}>
                         <Icon name='remove' /> Cancel
                       </Button>
-                      <Button color='green' inverted>
+                      <Button color='green' inverted onClick={(e) => {this.close(e); this.createNotification(e)}}>
                         <Icon name='checkmark' /> Send Message
                       </Button>
                     </Modal.Actions>
