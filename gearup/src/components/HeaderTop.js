@@ -78,7 +78,7 @@ class HeaderTop extends Component {
         </Modal.Actions>
       </Modal> : <p></p>}
       {this.state.showButton ? <p></p> : <Button onClick={(event) => { this.props.logOut(event); setTimeout(function () { this.visibleButton(event) }.bind(this), 500) }} className='logout'>Log Out</Button>}
-      <h3>{this.props.loggedInUser}</h3>
+      {this.state.showButton ? <h3>{this.props.loggedInUser}</h3> : <Button>{this.props.loggedInUser}</Button>}
       <h1>Denver Gear Up</h1>
     </header>
     )
