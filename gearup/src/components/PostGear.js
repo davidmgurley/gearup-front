@@ -53,7 +53,7 @@ class PostGear extends Component {
     }))
   }
 
-  handleNewGearOpen = (event) => this.setState({ modalNewGearOpen: true })
+  handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true }), this.setState({itemID: event.target.id})}
   handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
 
   handleChange = (event) => {
@@ -105,6 +105,41 @@ class PostGear extends Component {
     this.setState({available: !this.state.available})
   }
 
+  onUpdateSubmit = (event) => {
+    event.preventDefault()
+    const url = `https://gear-up-backend.herokuapp.com/gear/${this.state.itemID}`
+    const postData = {
+      gear_type: this.state.gearType,
+      category: this.state.category,
+      description: this.state.description,
+      owner: 'testemail@testemail.com',
+      available: this.state.available,
+      cost_per_day: this.state.price,
+      manufacturer: this.state.manufacturer,
+      renter: '',
+      image_url: this.state.image
+    }
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(postData),
+    })
+    .then(response => this.fetchItems())
+    this.setState({
+      image: '',
+      category: '',
+      gearType: '',
+      manufacturer: '',
+      description: '',
+      price: '',
+      available: true
+    })
+    this.handleNewGearClose()
+  }
+
+
   render() {
     return (
       <div>
@@ -149,6 +184,7 @@ class PostGear extends Component {
         </Modal>
         <section>
           {this.state.postedItems.map((item,index) => {
+
             return <Card key={index}>
               <Image style={{height:'290px', width:'290px'}} src={item.image_url} />
               <Card.Content>
@@ -158,7 +194,45 @@ class PostGear extends Component {
               <Card.Content extra>
                 <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
               </Card.Content>
-              <Button>Edit</Button>
+              <Modal trigger={ <Button id={item.id} onClick={this.handleNewGearOpen} className='add-gear'>Edit Item</Button>} open={this.state.modalNewGearOpen}
+              onClose={this.handleNewGearClose} basic size='small'>
+                <Header Icon='add user' content='Add New Gear' />
+                <Modal.Content>
+                  <Form>
+                    <Form.Field>
+                      <label>Image URL</label>
+                      <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
+                    </Form.Field>
+                    <Form.Field>
+                      <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={(event) => {setTimeout(function() {this.handleDropdownChange(event)}.bind(this), 100)}} />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Gear Type</label>
+                      <input id='new-gear-gear-type' placeholder='Gear Type e.g. Tent' name='gearType' value={this.state.gearType} onChange={this.handleChange} />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Manufacturer</label>
+                      <input id='new-gear-manufacturer' placeholder='Manufacturer' name='manufacturer' value={this.state.manufacturer} onChange={this.handleChange} />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Description</label>
+                      <TextArea id='new-gear-description' placeholder='Description' maxLength='140' name='description' value={this.state.description} onChange={this.handleChange} />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Price per Day</label>
+                      <input id='new-gear-price' placeholder='Price Per Day' name='price' value={this.state.price} onChange={this.handleChange} />
+                    </Form.Field>
+                    <Form.Field>
+                      <label>Available</label>
+                      <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                    </Form.Field>
+                    <Button onClick={this.onUpdateSubmit}>Update Item</Button>
+                    <Button onClick={this.postGearSubmit}>Delete</Button>
+                </Form>
+                </Modal.Content>
+                <Modal.Actions>
+                </Modal.Actions>
+              </Modal>
             </Card>
           })}
         </section>
