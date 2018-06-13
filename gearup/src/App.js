@@ -79,4 +79,8 @@ class App extends Component {
   }
 }
 
+window.onbeforeunload = function(e) {
+  firebase.auth().signOut()
+}
+
 export default App;

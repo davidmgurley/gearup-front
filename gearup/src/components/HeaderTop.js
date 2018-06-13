@@ -10,6 +10,8 @@ class HeaderTop extends Component {
     showButton: true
   }
 
+
+
   handleLogInOpen = (event) => this.setState({ modalLogInOpen: true })
   handleSignUpOpen = (event) => this.setState({ modalSignUpOpen: true })
 
@@ -68,7 +70,7 @@ class HeaderTop extends Component {
               <label>Password</label>
               <input id='login-password' type='password' placeholder='Password' />
             </Form.Field>
-            <Button onClick={(event) => { this.props.logIn(event); this.handleLogInClose(event); setTimeout(function() {this.visibleButton(event)}.bind(this), 500)}}>Submit</Button>
+            <Button onClick={(event) => { this.props.logIn(event); this.handleLogInClose(event); setTimeout(function() {this.visibleButton(event)}.bind(this), 1000)}}>Submit</Button>
 
           </Form>
         </Modal.Content>
@@ -76,11 +78,12 @@ class HeaderTop extends Component {
         </Modal.Actions>
       </Modal> : <p></p>}
       {this.state.showButton ? <p></p> : <Button onClick={(event) => { this.props.logOut(event); setTimeout(function () { this.visibleButton(event) }.bind(this), 500) }} className='logout'>Log Out</Button>}
-  <h3>{this.props.loggedInUser}</h3>
+      <h3>{this.props.loggedInUser}</h3>
       <h1>Denver Gear Up</h1>
     </header>
-  )
+    )
+  }
 }
-}
+
 
 export default HeaderTop
