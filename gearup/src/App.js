@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './HeaderTop.css'
 import HeaderTop from './components/HeaderTop'
 import BrowseGear from './components/BrowseGear'
 import firebase from 'firebase'
