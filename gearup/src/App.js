@@ -79,7 +79,7 @@ class App extends Component {
       <div className="App">
         <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
         <PostGear user={this.state.loggedInUser} />
-      <BrowseGear />
+        <BrowseGear />
       </div>
     );
   }
