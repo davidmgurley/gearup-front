@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import './BrowseGear.css'
+import './HeaderTop.css'
 import HeaderTop from './components/HeaderTop'
 import BrowseGear from './components/BrowseGear'
 import PostGear from './components/PostGear'
@@ -22,6 +24,7 @@ class App extends Component {
 
   constructor(props) {
     super(props)
+    this.child = React.createRef()
     this.state = {
       loggedInUser: 'Please Log In or Create an Account'
     }
@@ -37,7 +40,7 @@ class App extends Component {
       promise.catch(e => console.log(e.message))
       firebase.auth().onAuthStateChanged(firebaseUser => {
         if(firebaseUser){
-          this.setState ({ loggedInUser: firebaseUser.email })
+          this.setState ({ loggedInUser: firebaseUser.email }, () => {this.child.current.visibleButton()})
           console.log(firebaseUser.email)
         } else {
           console.log('not logged in')
@@ -54,8 +57,8 @@ class App extends Component {
     promise.catch(e => console.log(e.message))
     firebase.auth().onAuthStateChanged(firebaseUser => {
       if(firebaseUser){
-        this.setState ({ loggedInUser: firebaseUser.email })
-        console.log(firebaseUser.email)
+        this.setState ({ loggedInUser: firebaseUser.email }, () => {this.child.current.visibleButton()})
+        // console.log(firebaseUser.email)
       } else {
         console.log('not logged in')
       }})
@@ -64,7 +67,7 @@ class App extends Component {
   logOut = () => {
     firebase.auth().signOut()
     firebase.auth().onAuthStateChanged(firebaseUser => {
-        this.setState({ loggedInUser: 'Please Log In or Create an Account' })
+        this.setState({ loggedInUser: 'Please Log In or Create an Account' }, () => {this.child.current.visibleButton()})
       })
       alert('Thanks for visiting! You are now logged out')
   }
@@ -74,11 +77,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} />
+        <HeaderTop signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
         <PostGear user={this.state.loggedInUser} />
+      <BrowseGear />
       </div>
     );
   }
+}
+
+window.onbeforeunload = function(e) {
+  firebase.auth().signOut()
 }
 
 export default App;
