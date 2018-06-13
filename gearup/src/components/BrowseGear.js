@@ -51,8 +51,8 @@ class BrowseGear extends Component {
           <section className='browse-container'>
 
             {this.state.categories.map((category, index) => {
-              return <Card key={index} style={{marginTop:'10px', marginBottom:'0'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>
-                <Image style={{height:'290px', width:'290px', border:'1px solid white'}}src={category.image} />
+              return <Card key={index} style={{marginTop:'10px', marginBottom:'0', height: '240px', width: 'auto'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>
+                <Image style={{height:'200px', width:'200px', border:'1px solid white'}}src={category.image} />
                 <Card.Content>
                   <Card.Header style={{textAlign: 'center', fontSize: '200%'}}>{category.category}</Card.Header>
                 </Card.Content>

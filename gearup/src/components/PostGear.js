@@ -156,6 +156,7 @@ deleteGear = (event) =>{
     return (
       <div>
         <h1> User Profile </h1>
+        <Button onClick={this.props.showBrowseGear}>Home Page</Button>
         <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>} open={this.state.modalNewGearOpen}
         onClose={this.handleNewGearClose} basic size='small'>
           <Header Icon='add user' content='Add New Gear' />

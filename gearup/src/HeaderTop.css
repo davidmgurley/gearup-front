@@ -1,10 +1,14 @@
 header{
   background-color: black;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .buttons-and-user{
   color: white;
-  position: absolute;
+  /* position: absolute; */
   right: 0;
   padding-right: 1vw;
   padding-top: 1vh;
@@ -16,7 +20,7 @@ header{
   display: flex;
   align-items: center;
   padding-top: 2vh;
-  position: absolute;
+  /* position: absolute; */
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -54,8 +58,8 @@ header h3 {
 
 
 .modal {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(0% ,-50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(0% ,-50%);
 }
