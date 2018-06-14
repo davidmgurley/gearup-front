@@ -57,7 +57,25 @@ class PostGear extends Component {
   handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
   handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
 
-  handleUpdateOpen = (event) => {this.setState({ modalUpdateOpen: true }), this.setState({itemID: event.target.id})}
+  handleUpdateOpen = (event) => {
+    // this.setState({itemID: event.target.id})
+    console.log(event.target.id)
+    fetch(`https://gear-up-backend.herokuapp.com/gear/${event.target.id}`)
+    .then(response => response.json())
+    .then(response => {
+      this.setState({ 
+        itemID: event.target.id,
+        modalUpdateOpen: true,
+        image: response.gear.image_url,
+        category: response.gear.category,
+        gearType: response.gear.gear_type,
+        manufacturer: response.gear.manufacturer,
+        description: response.gear.description,
+        price: response.gear.cost_per_day,
+        available: response.gear.available
+    })}) 
+  }
+
   handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
 
   handleChange = (event) => {
