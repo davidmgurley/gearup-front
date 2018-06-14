@@ -80,6 +80,7 @@ class PostGear extends Component {
       renter: '',
       image_url: this.state.image
     }
+
     fetch(url, {
       method: 'POST',
       headers: {
@@ -88,18 +89,22 @@ class PostGear extends Component {
       body: JSON.stringify(postData),
     })
     .then(response => this.fetchItems())
-    this.setState({
-      image: '',
-      category: '',
-      gearType: '',
-      manufacturer: '',
-      description: '',
-      price: 0,
-      available: true
+    .then(response => {
+      this.setState({
+        image: '',
+        category: '',
+        gearType: '',
+        manufacturer: '',
+        description: '',
+        price: 0,
+        available: true
+      })
     })
+    .then(this.createNotification('Your gear has been posted'))
     this.handleNewGearClose()
 
   }
+
 
   handleDropdownChange = (event) => {
     const dropdown = document.getElementById('dropdownMenu')
@@ -141,6 +146,7 @@ class PostGear extends Component {
       price: 0,
       available: true
     })
+    .then(() => this.createNotification('Your gear has been updated'))
     this.handleUpdateClose()
   }
 
@@ -150,27 +156,18 @@ class PostGear extends Component {
       method: 'DELETE'
     })
     .then(response => this.fetchItems())
+    .then(() => this.createNotification('Your gear has been deleted'))
     this.handleUpdateClose()
   }
 
   addGearShow = () => this.setState({ modalNewGearOpen: true })
   updateGearShow = () => this.setState({ modalUpdateOpen: true })
-  addGearClose = () => {this.setState({ modalNewGearOpen: false,
-                                       image: '',
-                                       category: '',
-                                       gearType: '',
-                                       manufacturer: '',
-                                       description: '',
-                                       price: 0,
-                                       available: true})}
-  updateGearClose = () => {this.setState({ modalUpdateOpen: false,
-                                          image: '',
-                                          category: '',
-                                          gearType: '',
-                                          manufacturer: '',
-                                          description: '',
-                                          price: 0,
-                                          available: true })}
+  addGearClose = () => this.setState({ modalNewGearOpen: false })
+  updateGearClose = () => this.setState({ modalUpdateOpen: false })
+
+  createNotification = (message) => {
+    NotificationManager.success(message, 'Success!');
+  };
 
 
   render() {
@@ -181,8 +178,9 @@ class PostGear extends Component {
       <div>
         <h1> User Profile </h1>
         <Button onClick={this.props.showBrowseGear}>Home Page</Button>
-        <Button onClick={(e) => {this.addGearShow(); this.handleNewGearOpen}} className='add-gear'>Add New Item</Button>
-        <Modal open={this.state.modalNewGearOpen}
+
+        <Modal trigger={<Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>}
+               open={this.state.modalNewGearOpen}
                onClose={this.handleNewGearClose}
                basic size='small'>
           <Header icon='add user' content='Add New Gear' />
@@ -190,7 +188,7 @@ class PostGear extends Component {
             <Form>
               <Form.Field>
                 <label>Image URL</label>
-                <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
+                <input id='new-gear-image-url' placeholder='Image HELLO Url' name='image' value={this.state.image} onChange={this.handleChange} />
               </Form.Field>
               <Form.Field>
                 <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={(event) => {setTimeout(function() {this.handleDropdownChange(event)}.bind(this), 100)}} />
