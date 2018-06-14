@@ -52,7 +52,7 @@ class PostGear extends Component {
   }
 
   fetchItems = () => {
-    fetch(`https://gear-up-backend.herokuapp.com/gear/user/testemail@testemail.com`)
+    fetch(`https://gear-up-backend.herokuapp.com/gear/user/${this.props.user}`)
     .then(response => response.json())
     .then(response => this.setState({
       postedItems: response.gear,
@@ -62,7 +62,23 @@ class PostGear extends Component {
   handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
   handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
 
-  handleUpdateOpen = (event) => {this.setState({ modalUpdateOpen: true }), this.setState({itemID: event.target.id})}
+  handleUpdateOpen = (event) => {
+    this.setState({itemID: event.target.id})
+    fetch(`https://gear-up-backend.herokuapp.com/gear/${event.target.id}`)
+    .then(response => response.json())
+    .then(response => {
+      this.setState({ 
+        modalUpdateOpen: true,
+        image: response.gear.image_url,
+        category: response.gear.category,
+        gearType: response.gear.gear_type,
+        manufacturer: response.gear.manufacturer,
+        description: response.gear.description,
+        price: response.gear.cost_per_day,
+        available: response.gear.available
+    })}) 
+  }
+
   handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
 
   handleChange = (event) => {
@@ -81,7 +97,7 @@ class PostGear extends Component {
       gear_type: this.state.gearType,
       category: this.state.category,
       description: this.state.description,
-      owner: 'testemail@testemail.com',
+      owner: this.props.user,
       available: this.state.available,
       cost_per_day: this.state.price,
       manufacturer: this.state.manufacturer,
@@ -127,7 +143,7 @@ class PostGear extends Component {
       gear_type: this.state.gearType,
       category: this.state.category,
       description: this.state.description,
-      owner: 'testemail@testemail.com',
+      owner: this.props.user,
       available: this.state.available,
       cost_per_day: this.state.price,
       manufacturer: this.state.manufacturer,
@@ -171,10 +187,12 @@ class PostGear extends Component {
 
   render() {
     return (
-      <div>
-        <NotificationContainer/>
+
+      <div className="user-gear-div">
+       <NotificationContainer/>
         <h1> User Profile </h1>
-        <Button onClick={this.props.showBrowseGear}>Home Page</Button>
+         <div>
+        <Button className='add-gear' onClick={this.props.showBrowseGear}>Home Page</Button>
         <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>}
                open={this.state.modalNewGearOpen}
                onClose={this.handleNewGearClose}
@@ -207,7 +225,7 @@ class PostGear extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Available</label>
-                <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                <Checkbox toggle checked id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
               </Form.Field>
               <Button onClick={this.postGearSubmit}>Submit</Button>
               <Button negative onClick={this.handleNewGearClose}>Cancel</Button>
@@ -216,14 +234,16 @@ class PostGear extends Component {
           <Modal.Actions>
           </Modal.Actions>
         </Modal>
-        <section>
+        </div>
+        <h2>Your Gear for Rent</h2>
+        <section className='item-cards'>
           {this.state.postedItems.map((item,index) => {
 
-            return <Card key={index}>
+            return <Card key={index} style={{marginTop:'10px', marginBottom: '0', marginLeft: '30px', padding:'0'}}>
               <Image style={{height:'290px', width:'290px'}} src={item.image_url} />
               <Card.Content>
                 <Card.Header>{item.gear_type} - {item.manufacturer}</Card.Header>
-                <Card.Description>{item.description}</Card.Description>
+                <Card.Description style={{height: "60px", overflow:"auto"}}>{item.description}</Card.Description>
               </Card.Content>
               <Card.Content extra>
                 <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
@@ -238,7 +258,7 @@ class PostGear extends Component {
                       <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
                     </Form.Field>
                     <Form.Field>
-                      <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={this.handleCategoryChange.bind(this)} />
+                      <Dropdown id='dropdownMenu' placeholder='Category' defaultValue={this.state.category} fluid selection options={ gearCategories } name='category' onChange={this.handleCategoryChange.bind(this)} />
                     </Form.Field>
                     <Form.Field>
                       <label>Gear Type</label>
@@ -258,7 +278,7 @@ class PostGear extends Component {
                     </Form.Field>
                     <Form.Field>
                       <label>Available</label>
-                      <Checkbox toggle name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                      <Checkbox toggle checked={this.state.available ? true : false } name='available' value={this.state.available} onChange={this.checkboxToggle} />
                     </Form.Field>
                     <Button onClick={this.onUpdateSubmit}>Update Item</Button>
                     <Button onClick={this.deleteGear}>Delete</Button>
