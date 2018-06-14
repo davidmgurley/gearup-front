@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import './BrowseGear.css'
 import './HeaderTop.css'
+import './PostGear.css'
 import HeaderTop from './components/HeaderTop'
 import BrowseGear from './components/BrowseGear'
 import PostGear from './components/PostGear'
@@ -88,6 +89,7 @@ class App extends Component {
       <div className="App">
         <HeaderTop showPostGear={this.showPostGear} signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
         {this.state.showProfile ? <PostGear showBrowseGear={this.showBrowseGear} user={this.state.loggedInUser} /> : <BrowseGear />}
+        <footer>&copy;GearUp 2018</footer>
       </div>
     );
   }
