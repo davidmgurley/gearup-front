@@ -58,13 +58,11 @@ class PostGear extends Component {
   handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
 
   handleUpdateOpen = (event) => {
-    // this.setState({itemID: event.target.id})
-    console.log(event.target.id)
+    this.setState({itemID: event.target.id})
     fetch(`https://gear-up-backend.herokuapp.com/gear/${event.target.id}`)
     .then(response => response.json())
     .then(response => {
       this.setState({ 
-        itemID: event.target.id,
         modalUpdateOpen: true,
         image: response.gear.image_url,
         category: response.gear.category,
@@ -209,7 +207,7 @@ deleteGear = (event) =>{
               </Form.Field>
               <Form.Field>
                 <label>Available</label>
-                <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                <Checkbox toggle checked id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
               </Form.Field>
               <Button onClick={this.postGearSubmit}>Submit</Button>
           </Form>
@@ -239,7 +237,7 @@ deleteGear = (event) =>{
                       <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
                     </Form.Field>
                     <Form.Field>
-                      <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={this.handleCategoryChange.bind(this)} />
+                      <Dropdown id='dropdownMenu' placeholder='Category' defaultValue={this.state.category} fluid selection options={ gearCategories } name='category' onChange={this.handleCategoryChange.bind(this)} />
                     </Form.Field>
                     <Form.Field>
                       <label>Gear Type</label>
@@ -259,7 +257,7 @@ deleteGear = (event) =>{
                     </Form.Field>
                     <Form.Field>
                       <label>Available</label>
-                      <Checkbox toggle name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                      <Checkbox toggle checked={this.state.available ? true : false } name='available' value={this.state.available} onChange={this.checkboxToggle} />
                     </Form.Field>
                     <Button onClick={this.onUpdateSubmit}>Update Item</Button>
                     <Button onClick={this.deleteGear}>Delete</Button>
