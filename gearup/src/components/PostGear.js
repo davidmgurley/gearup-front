@@ -39,7 +39,8 @@ class PostGear extends Component {
     manufacturer: '',
     description: '',
     price: 0,
-    available: true
+    available: true,
+    open: false
   }
 
   componentDidMount() {
@@ -60,18 +61,10 @@ class PostGear extends Component {
   handleUpdateOpen = (event) => {this.setState({ modalUpdateOpen: true }), this.setState({itemID: event.target.id})}
   handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
 
-  handleChange = (event) => {
-    const name = event.target.name
-    this.setState({[name]: event.target.value})
-  }
-
-<<<<<<< HEAD
-=======
   handleCategoryChange = (event, data) => {
     this.setState({[data.name]: data.value})
   }
 
->>>>>>> bc5ee308e00f24769445517cd988e036cecd2bf8
   postGearSubmit = (event) => {
     event.preventDefault()
     const url = 'https://gear-up-backend.herokuapp.com/gear'
@@ -150,23 +143,48 @@ class PostGear extends Component {
     this.handleUpdateClose()
   }
 
-deleteGear = (event) =>{
-  const url = `https://gear-up-backend.herokuapp.com/gear/${this.state.itemID}`
-  fetch(url, {
-    method: 'DELETE'
-  })
-  .then(response => this.fetchItems())
-  this.handleUpdateClose()
-}
+  deleteGear = (event) =>{
+    const url = `https://gear-up-backend.herokuapp.com/gear/${this.state.itemID}`
+    fetch(url, {
+      method: 'DELETE'
+    })
+    .then(response => this.fetchItems())
+    this.handleUpdateClose()
+  }
+
+  addGearShow = () => this.setState({ modalNewGearOpen: true })
+  updateGearShow = () => this.setState({ modalUpdateOpen: true })
+  addGearClose = () => this.setState({ modalNewGearOpen: false,
+                                       image: '',
+                                       category: '',
+                                       gearType: '',
+                                       manufacturer: '',
+                                       description: '',
+                                       price: 0,
+                                       available: true})
+  updateGearClose = () => this.setState({ modalUpdateOpen: false,
+                                          image: '',
+                                          category: '',
+                                          gearType: '',
+                                          manufacturer: '',
+                                          description: '',
+                                          price: 0,
+                                          available: true })
+
 
   render() {
+
+    const { modalNewGearOpen, modalUpdateOpen } = this.state
+
     return (
       <div>
         <h1> User Profile </h1>
         <Button onClick={this.props.showBrowseGear}>Home Page</Button>
-        <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>} open={this.state.modalNewGearOpen}
-        onClose={this.handleNewGearClose} basic size='small'>
-          <Header Icon='add user' content='Add New Gear' />
+        <Button onClick={(e) => {this.addGearShow(); this.handleNewGearOpen}} className='add-gear'>Add New Item</Button>
+        <Modal open={this.state.modalNewGearOpen}
+               onClose={this.handleNewGearClose}
+               basic size='small'>
+          <Header icon='add user' content='Add New Gear' />
           <Modal.Content>
             <Form>
               <Form.Field>
@@ -197,15 +215,13 @@ deleteGear = (event) =>{
                 <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
               </Form.Field>
               <Button onClick={this.postGearSubmit}>Submit</Button>
-<<<<<<< HEAD
-              <Button negative>Cancel</Button>
-=======
->>>>>>> bc5ee308e00f24769445517cd988e036cecd2bf8
+              <Button negative onClick={this.addGearClose}>Cancel</Button>
           </Form>
           </Modal.Content>
           <Modal.Actions>
           </Modal.Actions>
         </Modal>
+
         <section>
           {this.state.postedItems.map((item,index) => {
 
@@ -218,9 +234,13 @@ deleteGear = (event) =>{
               <Card.Content extra>
                 <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
               </Card.Content>
-              <Modal trigger={ <Button onClick={this.handleUpdateOpen} id={item.id} className='add-gear'>Edit Item</Button>} open={this.state.modalUpdateOpen}
-              onClose={this.handleUpdateClose} basic size='small'>
-                <Header Icon='add user' content='Add New Gear' />
+              <Button onClick={(e) => {this.updateGearShow(); this.handleUpdateOpen}}
+                      id={item.id}
+                      className='add-gear'>Edit Item</Button>
+              <Modal open={modalUpdateOpen}
+                     onClose={this.handleUpdateClose}
+                     basic size='small'>
+                <Header icon='add user' content='Add New Gear' />
                 <Modal.Content>
                   <Form>
                     <Form.Field>
@@ -228,11 +248,7 @@ deleteGear = (event) =>{
                       <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
                     </Form.Field>
                     <Form.Field>
-<<<<<<< HEAD
                       <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={(event) => {setTimeout(function() {this.handleDropdownChange(event)}.bind(this), 100)}} />
-=======
-                      <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={this.handleCategoryChange.bind(this)} />
->>>>>>> bc5ee308e00f24769445517cd988e036cecd2bf8
                     </Form.Field>
                     <Form.Field>
                       <label>Gear Type</label>
@@ -252,14 +268,11 @@ deleteGear = (event) =>{
                     </Form.Field>
                     <Form.Field>
                       <label>Available</label>
-<<<<<<< HEAD
                       <Checkbox toggle id='update-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
-=======
-                      <Checkbox toggle name='available' value={this.state.available} onChange={this.checkboxToggle} />
->>>>>>> bc5ee308e00f24769445517cd988e036cecd2bf8
                     </Form.Field>
                     <Button onClick={this.onUpdateSubmit}>Update Item</Button>
                     <Button onClick={this.deleteGear}>Delete</Button>
+                    <Button negative onClick={this.updateGearClose}>Cancel</Button>
                 </Form>
                 </Modal.Content>
                 <Modal.Actions>
