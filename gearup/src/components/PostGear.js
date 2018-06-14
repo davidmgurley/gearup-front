@@ -174,9 +174,10 @@ deleteGear = (event) =>{
 
   render() {
     return (
-      <div>
+      <div className="user-gear-div">
         <h1> User Profile </h1>
-        <Button onClick={this.props.showBrowseGear}>Home Page</Button>
+         <div>
+        <Button className='add-gear' onClick={this.props.showBrowseGear}>Home Page</Button>
         <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>}
                open={this.state.modalNewGearOpen}
                onClose={this.handleNewGearClose}
@@ -218,14 +219,16 @@ deleteGear = (event) =>{
           <Modal.Actions>
           </Modal.Actions>
         </Modal>
-        <section>
+        </div>
+        <h2>Your Gear for Rent</h2>
+        <section className='item-cards'>
           {this.state.postedItems.map((item,index) => {
 
-            return <Card key={index}>
+            return <Card key={index} style={{marginTop:'10px', marginBottom: '0', marginLeft: '30px', padding:'0'}}>
               <Image style={{height:'290px', width:'290px'}} src={item.image_url} />
               <Card.Content>
                 <Card.Header>{item.gear_type} - {item.manufacturer}</Card.Header>
-                <Card.Description>{item.description}</Card.Description>
+                <Card.Description style={{height: "60px", overflow:"auto"}}>{item.description}</Card.Description>
               </Card.Content>
               <Card.Content extra>
                 <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>

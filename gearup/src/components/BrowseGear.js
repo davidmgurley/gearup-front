@@ -45,13 +45,13 @@ class BrowseGear extends Component {
     const { open, dimmer } = this.state
 
     return (
-      <div>
+      <div className="browse-div">
         <NotificationContainer />
         { this.state.showCategories ?
           <section className='browse-container'>
 
             {this.state.categories.map((category, index) => {
-              return <Card key={index} style={{marginTop:'10px', marginBottom:'0'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>
+              return <Card key={index} style={{marginTop:'30px', marginBottom:'10px', marginLeft:'1.5px', marginRight:'1.5px'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>
                 <Image style={{height:'290px', width:'290px', border:'1px solid white'}}src={category.image} />
                 <Card.Content>
                   <Card.Header style={{textAlign: 'center', fontSize: '200%'}}>{category.category}</Card.Header>
@@ -72,7 +72,7 @@ class BrowseGear extends Component {
                   <Image style={{height:'290px', width:'290px'}} src={item.image_url} />
                   <Card.Content>
                     <Card.Header>{item.gear_type} - {item.manufacturer}</Card.Header>
-                    <Card.Description>{item.description}</Card.Description>
+                    <Card.Description style={{height: "60px", overflow:"auto"}}>{item.description}</Card.Description>
                   </Card.Content>
                   <Card.Content extra>
                     <Card.Header>${item.cost_per_day} per day - {item.available ? 'available' : 'unavailable'} </Card.Header>
