@@ -132,9 +132,7 @@ class PostGear extends Component {
     })
     .then(response => response.json())
     .then(response => {
-
       if (response.error) {
-        // this.handleNewGearClose()
         this.createNotification('error', 'Please fill all required fields')
       } else {
         this.fetchItems()
@@ -187,20 +185,17 @@ class PostGear extends Component {
       },
       body: JSON.stringify(postData),
     })
-
-    .then(response => this.fetchItems())
-    .catch((error) => this.createNotification('error', 'Please fill all required fields'))
-    this.setState({
-      image: '',
-      category: '',
-      gearType: '',
-      manufacturer: '',
-      description: '',
-      price: 0,
-      available: true
+    .then(response => response.json())
+    .then(response => {
+      if (response.error) {
+        this.createNotification('error', 'Please fill all required fields')
+      } else {
+        this.fetchItems()
+        this.resetForm()
+        this.handleUpdateClose()
+        this.createNotification('success', 'Your item has been updated')
+      }
     })
-    this.handleUpdateClose()
-    this.createNotification('success', 'Your item has been updated')
   }
 
   deleteGear = (event) =>{
