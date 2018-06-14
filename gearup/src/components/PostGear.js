@@ -60,14 +60,21 @@ class PostGear extends Component {
   }
 
   handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
-  handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
+  handleNewGearClose = (event) => { this.setState({ modalNewGearOpen: false,
+                                                  image: '',
+                                                  category: '',
+                                                  gearType: '',
+                                                  manufacturer: '',
+                                                  description: '',
+                                                  price: 0,
+                                                  available: true}) }
 
   handleUpdateOpen = (event) => {
     this.setState({itemID: event.target.id})
     fetch(`https://gear-up-backend.herokuapp.com/gear/${event.target.id}`)
     .then(response => response.json())
     .then(response => {
-      this.setState({ 
+      this.setState({
         modalUpdateOpen: true,
         image: response.gear.image_url,
         category: response.gear.category,
@@ -76,10 +83,17 @@ class PostGear extends Component {
         description: response.gear.description,
         price: response.gear.cost_per_day,
         available: response.gear.available
-    })}) 
+    })})
   }
 
-  handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
+  handleUpdateClose = (event) => { this.setState({ modalUpdateOpen: false,
+                                                   image: '',
+                                                   category: '',
+                                                   gearType: '',
+                                                   manufacturer: '',
+                                                   description: '',
+                                                   price: 0,
+                                                   available: true }) }
 
   handleChange = (event) => {
     const name = event.target.name
@@ -111,6 +125,7 @@ class PostGear extends Component {
       },
       body: JSON.stringify(postData),
     })
+    .catch((error) => this.createNotification('error', 'Please fill all required fields'))
     .then(response => this.fetchItems())
 
     this.setState({
@@ -123,7 +138,7 @@ class PostGear extends Component {
       available: true
     })
     this.handleNewGearClose()
-    this.createNotification(event, 'Your item has been posted')
+    this.createNotification('success', 'Your item has been posted')
 
   }
 
@@ -157,6 +172,7 @@ class PostGear extends Component {
       },
       body: JSON.stringify(postData),
     })
+    .catch((error) => this.createNotification('error', 'Please fill all required fields'))
     .then(response => this.fetchItems())
     this.setState({
       image: '',
@@ -168,7 +184,7 @@ class PostGear extends Component {
       available: true
     })
     this.handleUpdateClose()
-    this.createNotification(event, 'Your item has been updated')
+    this.createNotification('success', 'Your item has been updated')
   }
 
   deleteGear = (event) =>{
@@ -180,10 +196,20 @@ class PostGear extends Component {
     this.handleUpdateClose()
   }
 
-  createNotification = (event, message) => {
-      console.log('Working')
-      NotificationManager.success(message, 'Success!')
-  };
+  createNotification = (type, message) => {
+    return () => {
+      switch (type) {
+        case 'success':
+          NotificationManager.success('Success message', 'Title here');
+          break;
+        case 'error':
+          NotificationManager.error(message, 5000, () => {
+            alert('callback');
+          });
+          break;
+      }
+    }
+  }
 
   render() {
     return (
