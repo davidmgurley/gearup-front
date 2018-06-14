@@ -161,8 +161,10 @@ deleteGear = (event) =>{
       <div>
         <h1> User Profile </h1>
         <Button onClick={this.props.showBrowseGear}>Home Page</Button>
-        <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>} open={this.state.modalNewGearOpen}
-        onClose={this.handleNewGearClose} basic size='small'>
+        <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>}
+               open={this.state.modalNewGearOpen}
+               onClose={this.handleNewGearClose}
+               basic size='small'>
           <Header Icon='add user' content='Add New Gear' />
           <Modal.Content>
             <Form>
@@ -194,6 +196,7 @@ deleteGear = (event) =>{
                 <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
               </Form.Field>
               <Button onClick={this.postGearSubmit}>Submit</Button>
+              <Button negative onClick={this.handleNewGearClose}>Cancel</Button>
           </Form>
           </Modal.Content>
           <Modal.Actions>
@@ -245,6 +248,7 @@ deleteGear = (event) =>{
                     </Form.Field>
                     <Button onClick={this.onUpdateSubmit}>Update Item</Button>
                     <Button onClick={this.deleteGear}>Delete</Button>
+                    <Button negative onClick={this.handleUpdateClose}>Cancel</Button>
                 </Form>
                 </Modal.Content>
                 <Modal.Actions>
