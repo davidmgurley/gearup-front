@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import { Checkbox, TextArea, Card, Icon, Image, Button, Modal, Form, Header, Dropdown } from 'semantic-ui-react'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+import 'react-notifications/lib/notifications.css'
+
+
+
 
 const gearCategories = [
   {text:'Camp',
@@ -55,7 +60,7 @@ class PostGear extends Component {
   }
 
   handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
-  handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
+  handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false }, (e) => this.createNotification(e))
 
   handleUpdateOpen = (event) => {this.setState({ modalUpdateOpen: true }), this.setState({itemID: event.target.id})}
   handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
@@ -91,6 +96,7 @@ class PostGear extends Component {
       body: JSON.stringify(postData),
     })
     .then(response => this.fetchItems())
+
     this.setState({
       image: '',
       category: '',
@@ -147,14 +153,19 @@ class PostGear extends Component {
     this.handleUpdateClose()
   }
 
-deleteGear = (event) =>{
-  const url = `https://gear-up-backend.herokuapp.com/gear/${this.state.itemID}`
-  fetch(url, {
-    method: 'DELETE'
-  })
-  .then(response => this.fetchItems())
-  this.handleUpdateClose()
-}
+  deleteGear = (event) =>{
+    const url = `https://gear-up-backend.herokuapp.com/gear/${this.state.itemID}`
+    fetch(url, {
+      method: 'DELETE'
+    })
+    .then(response => this.fetchItems())
+    this.handleUpdateClose()
+  }
+
+  createNotification = (event) => {
+    console.log('balls')
+    NotificationManager.success('shit was posted', 'Success!');
+  }
 
   render() {
     return (
@@ -165,7 +176,7 @@ deleteGear = (event) =>{
                open={this.state.modalNewGearOpen}
                onClose={this.handleNewGearClose}
                basic size='small'>
-          <Header Icon='add user' content='Add New Gear' />
+          <Header icon='add user' content='Add New Gear' />
           <Modal.Content>
             <Form>
               <Form.Field>
