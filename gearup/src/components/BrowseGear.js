@@ -22,7 +22,6 @@ class BrowseGear extends Component {
   }
 
   loadItems = (event) => {
-    // console.log(event)
     fetch(`https://gear-up-backend.herokuapp.com/gear/category/${event}`)
     .then(response => response.json())
     .then(response => this.setState({
