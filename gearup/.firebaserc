@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "denver-gear-up"
+    "default": "denver-gear-up",
+    "gear up": "denver-gear-up"
   }
 }

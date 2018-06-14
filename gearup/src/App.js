@@ -69,7 +69,7 @@ class App extends Component {
   logOut = () => {
     firebase.auth().signOut()
     firebase.auth().onAuthStateChanged(firebaseUser => {
-        this.setState({ loggedInUser: 'Please Log In or Create an Account' }, () => {this.child.current.visibleButton()})
+        this.setState({ loggedInUser: 'Please Log In or Create an Account', showProfile: false }, () => {this.child.current.visibleButton()})
       })
       alert('Thanks for visiting! You are now logged out')
   }
