@@ -33,6 +33,12 @@ footer {
   font-size: 2vh;
   margin-top: 2vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-content: center;
   align-items: center;
+  padding: 0vw 5vw;
+}
+
+.copyright {
+  margin-bottom: 0;
 }

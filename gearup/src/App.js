@@ -89,7 +89,10 @@ class App extends Component {
       <div className="App">
         <HeaderTop showPostGear={this.showPostGear} signUp={this.signUp} logIn={this.logIn} logOut={this.logOut} loggedInUser={this.state.loggedInUser} ref={this.child}/>
         {this.state.showProfile ? <PostGear showBrowseGear={this.showBrowseGear} user={this.state.loggedInUser} /> : <BrowseGear />}
-        <footer>&copy;GearUp 2018</footer>
+        <footer>
+          <p className="copyright"> &copy;GearUp 2018</p>
+          <p>Carter Decker Gurley Hyrka Livingston</p>
+        </footer>
       </div>
     );
   }
