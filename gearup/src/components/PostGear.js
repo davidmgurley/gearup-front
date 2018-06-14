@@ -47,7 +47,7 @@ class PostGear extends Component {
   }
 
   fetchItems = () => {
-    fetch(`https://gear-up-backend.herokuapp.com/gear/user/testemail@testemail.com`)
+    fetch(`https://gear-up-backend.herokuapp.com/gear/user/${this.props.user}`)
     .then(response => response.json())
     .then(response => this.setState({
       postedItems: response.gear,
@@ -76,7 +76,7 @@ class PostGear extends Component {
       gear_type: this.state.gearType,
       category: this.state.category,
       description: this.state.description,
-      owner: 'testemail@testemail.com',
+      owner: this.props.user,
       available: this.state.available,
       cost_per_day: this.state.price,
       manufacturer: this.state.manufacturer,
@@ -120,7 +120,7 @@ class PostGear extends Component {
       gear_type: this.state.gearType,
       category: this.state.category,
       description: this.state.description,
-      owner: 'testemail@testemail.com',
+      owner: this.props.user,
       available: this.state.available,
       cost_per_day: this.state.price,
       manufacturer: this.state.manufacturer,
