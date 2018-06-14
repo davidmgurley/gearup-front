@@ -47,7 +47,7 @@ class PostGear extends Component {
   }
 
   fetchItems = () => {
-    fetch(`https://gear-up-backend.herokuapp.com/gear/user/testemail@testemail.com`)
+    fetch(`https://gear-up-backend.herokuapp.com/gear/user/${this.props.user}`)
     .then(response => response.json())
     .then(response => this.setState({
       postedItems: response.gear,
@@ -57,12 +57,32 @@ class PostGear extends Component {
   handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
   handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
 
-  handleUpdateOpen = (event) => {this.setState({ modalUpdateOpen: true }), this.setState({itemID: event.target.id})}
+  handleUpdateOpen = (event) => {
+    this.setState({itemID: event.target.id})
+    fetch(`https://gear-up-backend.herokuapp.com/gear/${event.target.id}`)
+    .then(response => response.json())
+    .then(response => {
+      this.setState({ 
+        modalUpdateOpen: true,
+        image: response.gear.image_url,
+        category: response.gear.category,
+        gearType: response.gear.gear_type,
+        manufacturer: response.gear.manufacturer,
+        description: response.gear.description,
+        price: response.gear.cost_per_day,
+        available: response.gear.available
+    })}) 
+  }
+
   handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
 
   handleChange = (event) => {
     const name = event.target.name
     this.setState({[name]: event.target.value})
+  }
+
+  handleCategoryChange = (event, data) => {
+    this.setState({[data.name]: data.value})
   }
 
   postGearSubmit = (event) => {
@@ -72,7 +92,7 @@ class PostGear extends Component {
       gear_type: this.state.gearType,
       category: this.state.category,
       description: this.state.description,
-      owner: 'testemail@testemail.com',
+      owner: this.props.user,
       available: this.state.available,
       cost_per_day: this.state.price,
       manufacturer: this.state.manufacturer,
@@ -116,7 +136,7 @@ class PostGear extends Component {
       gear_type: this.state.gearType,
       category: this.state.category,
       description: this.state.description,
-      owner: 'testemail@testemail.com',
+      owner: this.props.user,
       available: this.state.available,
       cost_per_day: this.state.price,
       manufacturer: this.state.manufacturer,
@@ -156,51 +176,52 @@ deleteGear = (event) =>{
     return (
       <div className="user-gear-div">
         <h1> User Profile </h1>
-        <div>
-          <Button className='add-gear' onClick={this.props.showBrowseGear}>Home Page</Button>
-          <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>} open={this.state.modalNewGearOpen}
-          onClose={this.handleNewGearClose} basic size='small'>
-            <Header Icon='add user' content='Add New Gear' />
-            <Modal.Content>
-              <Form>
-                <Form.Field>
-                  <label>Image URL</label>
-                  <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
-                </Form.Field>
-                <Form.Field>
-                  <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={(event) => {setTimeout(function() {this.handleDropdownChange(event)}.bind(this), 100)}} />
-                </Form.Field>
-                <Form.Field>
-                  <label>Gear Type</label>
-                  <input id='new-gear-gear-type' placeholder='Gear Type e.g. Tent' name='gearType' value={this.state.gearType} onChange={this.handleChange} />
-                </Form.Field>
-                <Form.Field>
-                  <label>Manufacturer</label>
-                  <input id='new-gear-manufacturer' placeholder='Manufacturer' name='manufacturer' value={this.state.manufacturer} onChange={this.handleChange} />
-                </Form.Field>
-                <Form.Field>
-                  <label>Description</label>
-                  <TextArea id='new-gear-description' placeholder='Description' maxLength='140' name='description' value={this.state.description} onChange={this.handleChange} />
-                </Form.Field>
-                <Form.Field>
-                  <label>Price per Day</label>
-                  <input id='new-gear-price' placeholder='Price Per Day' name='price' value={this.state.price} onChange={this.handleChange} />
-                </Form.Field>
-                <Form.Field>
-                  <label>Available</label>
-                  <Checkbox toggle id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
-                </Form.Field>
-                <Button onClick={this.postGearSubmit}>Submit</Button>
-                <Button negative>Cancel</Button>
-            </Form>
-            </Modal.Content>
-            <Modal.Actions>
-            </Modal.Actions>
-          </Modal>
+         <div>
+        <Button className='add-gear' onClick={this.props.showBrowseGear}>Home Page</Button>
+        <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>}
+               open={this.state.modalNewGearOpen}
+               onClose={this.handleNewGearClose}
+               basic size='small'>
+          <Header Icon='add user' content='Add New Gear' />
+          <Modal.Content>
+            <Form>
+              <Form.Field>
+                <label>Image URL</label>
+                <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
+              </Form.Field>
+              <Form.Field>
+                <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={(event) => {setTimeout(function() {this.handleDropdownChange(event)}.bind(this), 100)}} />
+              </Form.Field>
+              <Form.Field>
+                <label>Gear Type</label>
+                <input id='new-gear-gear-type' placeholder='Gear Type e.g. Tent' name='gearType' value={this.state.gearType} onChange={this.handleChange} />
+              </Form.Field>
+              <Form.Field>
+                <label>Manufacturer</label>
+                <input id='new-gear-manufacturer' placeholder='Manufacturer' name='manufacturer' value={this.state.manufacturer} onChange={this.handleChange} />
+              </Form.Field>
+              <Form.Field>
+                <label>Description</label>
+                <TextArea id='new-gear-description' placeholder='Description' maxLength='140' name='description' value={this.state.description} onChange={this.handleChange} />
+              </Form.Field>
+              <Form.Field>
+                <label>Price per Day</label>
+                <input id='new-gear-price' placeholder='Price Per Day' name='price' value={this.state.price} onChange={this.handleChange} />
+              </Form.Field>
+              <Form.Field>
+                <label>Available</label>
+                <Checkbox toggle checked id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+              </Form.Field>
+              <Button onClick={this.postGearSubmit}>Submit</Button>
+              <Button negative onClick={this.handleNewGearClose}>Cancel</Button>
+          </Form>
+          </Modal.Content>
+          <Modal.Actions>
+          </Modal.Actions>
+        </Modal>
         </div>
-
         <h2>Your Gear for Rent</h2>
-        <section className="item-cards">
+        <section className='item-cards'>
           {this.state.postedItems.map((item,index) => {
 
             return <Card key={index} style={{marginTop:'10px', marginBottom: '0', marginLeft: '30px', padding:'0'}}>
@@ -222,7 +243,7 @@ deleteGear = (event) =>{
                       <input id='new-gear-image-url' placeholder='Image Url' name='image' value={this.state.image} onChange={this.handleChange} />
                     </Form.Field>
                     <Form.Field>
-                      <Dropdown id='dropdownMenu' placeholder='Category' fluid selection options={ gearCategories } name='category' onChange={(event) => {setTimeout(function() {this.handleDropdownChange(event)}.bind(this), 100)}} />
+                      <Dropdown id='dropdownMenu' placeholder='Category' defaultValue={this.state.category} fluid selection options={ gearCategories } name='category' onChange={this.handleCategoryChange.bind(this)} />
                     </Form.Field>
                     <Form.Field>
                       <label>Gear Type</label>
@@ -242,10 +263,11 @@ deleteGear = (event) =>{
                     </Form.Field>
                     <Form.Field>
                       <label>Available</label>
-                      <Checkbox toggle id='update-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                      <Checkbox toggle checked={this.state.available ? true : false } name='available' value={this.state.available} onChange={this.checkboxToggle} />
                     </Form.Field>
                     <Button onClick={this.onUpdateSubmit}>Update Item</Button>
                     <Button onClick={this.deleteGear}>Delete</Button>
+                    <Button negative onClick={this.handleUpdateClose}>Cancel</Button>
                 </Form>
                 </Modal.Content>
                 <Modal.Actions>
