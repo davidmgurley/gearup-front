@@ -60,7 +60,7 @@ class PostGear extends Component {
   }
 
   handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
-  handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false }, (e) => this.createNotification(e))
+  handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
 
   handleUpdateOpen = (event) => {this.setState({ modalUpdateOpen: true }), this.setState({itemID: event.target.id})}
   handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
@@ -107,6 +107,7 @@ class PostGear extends Component {
       available: true
     })
     this.handleNewGearClose()
+    this.createNotification(event, 'Your item has been posted')
 
   }
 
@@ -151,6 +152,7 @@ class PostGear extends Component {
       available: true
     })
     this.handleUpdateClose()
+    this.createNotification(event, 'Your item has been updated')
   }
 
   deleteGear = (event) =>{
@@ -162,14 +164,15 @@ class PostGear extends Component {
     this.handleUpdateClose()
   }
 
-  createNotification = (event) => {
-    console.log('balls')
-    NotificationManager.success('shit was posted', 'Success!');
-  }
+  createNotification = (event, message) => {
+      console.log('Working')
+      NotificationManager.success(message, 'Success!')
+  };
 
   render() {
     return (
       <div>
+        <NotificationContainer/>
         <h1> User Profile </h1>
         <Button onClick={this.props.showBrowseGear}>Home Page</Button>
         <Modal trigger={ <Button onClick={this.handleNewGearOpen} className='add-gear'>Add New Item</Button>}
