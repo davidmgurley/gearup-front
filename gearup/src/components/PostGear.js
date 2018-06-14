@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Checkbox, TextArea, Card, Icon, Image, Button, Modal, Form, Header, Dropdown } from 'semantic-ui-react'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 const gearCategories = [
   {text:'Camp',
@@ -154,22 +155,22 @@ class PostGear extends Component {
 
   addGearShow = () => this.setState({ modalNewGearOpen: true })
   updateGearShow = () => this.setState({ modalUpdateOpen: true })
-  addGearClose = () => this.setState({ modalNewGearOpen: false,
+  addGearClose = () => {this.setState({ modalNewGearOpen: false,
                                        image: '',
                                        category: '',
                                        gearType: '',
                                        manufacturer: '',
                                        description: '',
                                        price: 0,
-                                       available: true})
-  updateGearClose = () => this.setState({ modalUpdateOpen: false,
+                                       available: true})}
+  updateGearClose = () => {this.setState({ modalUpdateOpen: false,
                                           image: '',
                                           category: '',
                                           gearType: '',
                                           manufacturer: '',
                                           description: '',
                                           price: 0,
-                                          available: true })
+                                          available: true })}
 
 
   render() {
