@@ -31,7 +31,7 @@ class HeaderTop extends Component {
   return (
 
     <header>
-      <div className='title'>
+      <div className='main-title'>
         <h1>Gear Up</h1>
         <h2>Denver</h2>
       </div>
