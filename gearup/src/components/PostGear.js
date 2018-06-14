@@ -60,7 +60,16 @@ class PostGear extends Component {
   }
 
   handleNewGearOpen = (event) => {this.setState({ modalNewGearOpen: true })}
-  handleNewGearClose = (event) => this.setState({ modalNewGearOpen: false })
+  handleNewGearClose = (event) => this.setState({ 
+    modalNewGearOpen: false,
+    image: '',
+    category: '',
+    gearType: '',
+    manufacturer: '',
+    description: '',
+    price: 0,
+    available: true 
+  })
 
   handleUpdateOpen = (event) => {
     this.setState({itemID: event.target.id})
@@ -79,7 +88,16 @@ class PostGear extends Component {
     })}) 
   }
 
-  handleUpdateClose = (event) => this.setState({ modalUpdateOpen: false })
+  handleUpdateClose = (event) => this.setState({ 
+    modalUpdateOpen: false,
+    image: '',
+    category: '',
+    gearType: '',
+    manufacturer: '',
+    description: '',
+    price: 0,
+    available: true 
+  })
 
   handleChange = (event) => {
     const name = event.target.name
