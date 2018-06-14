@@ -57,4 +57,9 @@ header h3 {
 
 .logout {
   margin-bottom: 1vh !important;
+  width: 100%;
+}
+
+.profile-button {
+  width: 100%
 }

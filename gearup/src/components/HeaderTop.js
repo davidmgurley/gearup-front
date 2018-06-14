@@ -93,7 +93,7 @@ class HeaderTop extends Component {
 
 
         {this.state.showButton ? <p></p> : <Button onClick={(event) => { this.props.logOut(event);  this.visibleButton(event) } } className='logout'>Log Out</Button>}
-        {this.state.showButton ? <h3>{this.props.loggedInUser}</h3> : <Button onClick={this.props.showPostGear}>{this.props.loggedInUser}</Button>}
+        {this.state.showButton ? <h3>{this.props.loggedInUser}</h3> : <div><Button className='profile-button' onClick={this.props.showPostGear}>My Profile</Button><h3>{this.props.loggedInUser}</h3></div>}
       </div>
 
     </header>
