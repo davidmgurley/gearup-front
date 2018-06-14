@@ -1,18 +1,10 @@
-describe('Tests for Gear Up', () => {
-  it('Has a Gear Up logo at the top', () => {
-    cy.visit('/');
-    cy.get('h1').should('have.text', 'Denver Gear Up')
-    // cy.get('header button').should('have.text', 'login')
-    // cy.get('header button').should('have.text', 'sign up')
-    cy.get('.browse-container').contains('Card').should('eq', 6)
-    // cy.get('a').contains('Order').should('exist')
-    // cy.get('a').contains('Product').should('exist')
-    // cy.get('.dropdown-menu a').contains('Documentation').should('exist')
-    // cy.get('.dropdown-menu a').contains('Features').should('exist')
-    // cy.get('.dropdown-menu a').contains('Technology').should('exist')
-    // cy.get('h4').should('have.lengthOf', 6)
-    // cy.get('.dropdown-toggle').click()
-    // cy.get('a').contains('Order').click()
-    // cy.url().should('contain', '/order.html')
+describe('Cypress Testing for Gear Up Group Project', () => {
+  it('Has page load with correct elements and function', () => {
+    cy.visit('localhost:3000');
+    cy.get('h1').should('have.text', 'Gear Up')
+    cy.get('button.ui.button.login').should('have.text', 'Log In')
+    cy.get('button.ui.button.signup').should('have.text', ' Sign Up ')
+    cy.get('button.ui.button.login').click().get('input#login-email').type('shaunsemail@email.com').get('input#login-password').type('password').get('button.ui.button').contains('Submit').click()
+    cy.get('button.ui.button').wait(500).contains('shaunsemail@email.com').click()
   })
 })
