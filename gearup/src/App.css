@@ -13,6 +13,7 @@ html {
 .header-icon {
   filter:invert(100%);
   height: 15vh;
+  margin-right: 15vw;
 }
 
 .ui.button {
@@ -23,6 +24,15 @@ html {
 .ui.button:hover{
   background-color: white;
   color: #859DA7;
+}
+
+.ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before{
+  background-color: red !important;
+}
+
+
+.ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before{
+  background-color: red;
 }
 
 body {
