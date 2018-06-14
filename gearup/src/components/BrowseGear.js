@@ -52,7 +52,7 @@ class BrowseGear extends Component {
 
             {this.state.categories.map((category, index) => {
               return <Card key={index} style={{marginTop:'10px', marginBottom:'0'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>
-                <Image style={{height:'290px', width:'290px'}}src={category.image} />
+                <Image style={{height:'290px', width:'290px', border:'1px solid white'}}src={category.image} />
                 <Card.Content>
                   <Card.Header style={{textAlign: 'center', fontSize: '200%'}}>{category.category}</Card.Header>
                 </Card.Content>
@@ -63,7 +63,7 @@ class BrowseGear extends Component {
         <section id="browse-items-by-category">
           <Button.Group floated='right'>
             {this.state.categories.map((category, index) => {
-              return <Button color="brown" key={index} style={{color: '#F7F9F9', height: '65px'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>{category.category}</Button>
+              return <Button color="black" key={index} style={{color: '#F7F9F9', height: '65px'}} onClick={(props) => this.loadItems(category.category.toLowerCase())}>{category.category}</Button>
             })}
           </Button.Group>
           <section className="item-cards">

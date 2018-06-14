@@ -1,0 +1,60 @@
+header{
+  background-color: black;
+}
+
+.buttons-and-user{
+  color: white;
+  right: 0;
+  padding-right: 1vw;
+  padding-top: 1vh;
+}
+
+.title {
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-top: 2vh;
+  /* position: absolute; */
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  justify-content: center;
+}
+
+header h1 {
+  font-weight: 100;
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 5em;
+  letter-spacing: 5px;
+  white-space: nowrap;
+}
+
+header h2 {
+
+}
+
+header h3 {
+  margin: 0;
+  font-size: 1em
+}
+
+.ui.button {
+  background-color: blue;
+  color: white;
+}
+
+.ui.button:hover{
+  background-color: gray;
+  color: blue;
+}
+
+
+
+.modal {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(0% ,-50%);
+}
