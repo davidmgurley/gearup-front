@@ -52,7 +52,7 @@ class PostGear extends Component {
   }
 
   fetchItems = () => {
-    fetch(`https://gear-up-backend.herokuapp.com/gear/user/${this.props.user}`)
+    return fetch(`https://gear-up-backend.herokuapp.com/gear/user/${this.props.user}`)
     .then(response => response.json())
     .then(response => this.setState({
       postedItems: response.gear,
@@ -107,6 +107,11 @@ class PostGear extends Component {
   postGearSubmit = (event) => {
     event.preventDefault()
     const url = 'https://gear-up-backend.herokuapp.com/gear'
+
+    // var promise1 = new Promise(function(resolve, reject) {
+    //   throw 'error hello world'
+    // })
+
     const postData = {
       gear_type: this.state.gearType,
       category: this.state.category,
@@ -118,16 +123,29 @@ class PostGear extends Component {
       renter: '',
       image_url: this.state.image
     }
-    fetch(url, {
+    return fetch(url, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify(postData),
     })
-    .catch((error) => this.createNotification('error', 'Please fill all required fields'))
-    .then(response => this.fetchItems())
+    .then(response => response.json())
+    .then(response => {
 
+      if (response.error) {
+        // this.handleNewGearClose()
+        this.createNotification('error', 'Please fill all required fields')
+      } else {
+        this.fetchItems()
+        this.resetForm()
+        this.handleNewGearClose()
+        this.createNotification('success', 'Your item has been posted')
+      }
+    })
+  }
+
+  resetForm = () => {
     this.setState({
       image: '',
       category: '',
@@ -137,9 +155,6 @@ class PostGear extends Component {
       price: 0,
       available: true
     })
-    this.handleNewGearClose()
-    this.createNotification('success', 'Your item has been posted')
-
   }
 
   handleDropdownChange = (event) => {
@@ -172,8 +187,9 @@ class PostGear extends Component {
       },
       body: JSON.stringify(postData),
     })
-    .catch((error) => this.createNotification('error', 'Please fill all required fields'))
+
     .then(response => this.fetchItems())
+    .catch((error) => this.createNotification('error', 'Please fill all required fields'))
     this.setState({
       image: '',
       category: '',
@@ -197,17 +213,16 @@ class PostGear extends Component {
   }
 
   createNotification = (type, message) => {
-    return () => {
       switch (type) {
         case 'success':
-          NotificationManager.success('Success message', 'Title here');
+          NotificationManager.success(message, 'Success!');
           break;
         case 'error':
-          NotificationManager.error(message, 5000, () => {
+          console.log('error')
+          NotificationManager.error(message, 'Error', 2000, () => {
             alert('callback');
           });
           break;
-      }
     }
   }
 
