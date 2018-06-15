@@ -1,4 +1,4 @@
-**Gear Up (Denver)**
+#**Gear Up (Denver)**
 
 Gear up is a peer-to-peer outdoor / recreational gear sharing service. Colorado is
 known for it vibrant outdoor community. Whether it's camping, kayaking, snowboarding, or
@@ -8,7 +8,9 @@ We at Gear Up feel that every person has the right to enjoy to great outdoors of
 allows users to post their excess or unused gear for daily rental by those who want to try something new,
 or presently do not have the means to purchase recreational equipment.
 
-**Getting Started**
+##**Getting Started**
+
+
 As a prospective lender:
   - Create a profile with your email & credit card information
   - Fill out our add gear form
@@ -23,17 +25,17 @@ As a user:
     between you and the lender
 
 
-**Our Site**
+###**Our Site**
 https://denver-gear-up.firebaseapp.com/
 
-**Backend**
+###**Backend**
 https://gear-up-backend.herokuapp.com/gear
 
-**Slides / Demo**
+###**Slides / Demo**
 https://slides.com/trescara/galvanize-g/fullscreen#/
 
 
-**Built With**
+###**Built With**
 React.js
 Express.js
 Knex
@@ -42,8 +44,8 @@ Semantic UI - react
 Cypress
 Firebase Authentication
 
-**Authors**
+###**Authors**
 Allison Livingston, David Gurley, Keith Decker, Matthew Hyrka, Shaun Carter
 
-**License**
+###**License**
 This project is licensed under the MIT License - see the LICENSE.md file for details
