@@ -16,7 +16,7 @@ header{
   align-content: center;
 }
 
-.title {
+.main-title {
   background-color: black;
   color: white;
   display: flex;
@@ -57,4 +57,9 @@ header h3 {
 
 .logout {
   margin-bottom: 1vh !important;
+  width: 100%;
+}
+
+.profile-button {
+  width: 100%
 }

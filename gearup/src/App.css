@@ -1,3 +1,8 @@
+html {
+  height: 100%;
+  position: relative;
+}
+
 .modal {
    position: fixed;
    top: 50%;
@@ -8,6 +13,7 @@
 .header-icon {
   filter:invert(100%);
   height: 15vh;
+  margin-right: 15vw;
 }
 
 .ui.button {
@@ -20,11 +26,30 @@
   color: #859DA7;
 }
 
+.ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before{
+  background-color: red !important;
+}
+
+
+.ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before{
+  background-color: red;
+}
+
 body {
   background-image: url('./mountains.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
+  height: 100%;
+}
+
+.App {
+  min-height: 100%;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 14vh;
 }
 
 footer {
@@ -37,6 +62,9 @@ footer {
   align-content: center;
   align-items: center;
   padding: 0vw 5vw;
+  position: absolute;
+  bottom: 0;
+  width: 100%
 }
 
 .copyright {
