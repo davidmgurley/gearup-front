@@ -266,7 +266,7 @@ class PostGear extends Component {
               </Form.Field>
               <Form.Field>
                 <label>Available</label>
-                <Checkbox toggle checked id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
+                <Checkbox toggle checked={this.state.available ? true : false } id='new-gear-availability' name='available' value={this.state.available} onChange={this.checkboxToggle} />
               </Form.Field>
               <Button onClick={this.postGearSubmit}>Submit</Button>
               <Button negative onClick={this.handleNewGearClose}>Cancel</Button>
