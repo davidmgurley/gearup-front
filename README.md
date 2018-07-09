@@ -24,6 +24,7 @@ As a user:
   - You will be notified within 24 hours of the status of your request, and arrangements will be made
     between you and the lender
 
+![website screenshot](./GearUp-Screenshot.png)
 
 ### **Our Site**
 https://denver-gear-up.firebaseapp.com/
