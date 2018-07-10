@@ -36,7 +36,7 @@ https://gear-up-backend.herokuapp.com/gear
 https://slides.com/trescara/galvanize-g/fullscreen#/
 
 
-### **Built With**
+### **Technologies**
 React.js
 Express.js
 Knex
