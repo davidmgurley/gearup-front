@@ -53,4 +53,4 @@ David Gurley <br />
 Email: davidmgurley@gmail.com <br />
 LinkedIn: www.linkedin.com/in/david-m-gurley
 ### **License**
-This project is licensed under the MIT License - see the LICENSE.md file for details
+See the LICENSE.md file for details
