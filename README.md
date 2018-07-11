@@ -49,8 +49,8 @@ Firebase Authentication
 Allison Livingston, David Gurley, Keith Decker, Matthew Hyrka, Shaun Carter
 
 ### **Contact**
-Allison Livingston <br />
-Email: allisonlivingston16@gmail.com <br />
-LinkedIn: www.linkedin.com/in/allisonlivingston16
+David Gurley <br />
+Email: davidmgurley@gmail.com <br />
+LinkedIn: www.linkedin.com/in/david-m-gurley
 ### **License**
 This project is licensed under the MIT License - see the LICENSE.md file for details
